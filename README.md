@@ -56,7 +56,7 @@ Services:
 
 | Service    | URL                    |
 |------------|------------------------|
-| API        | http://localhost:8080  |
+| API        | http://localhost:18080 |
 | Dashboard  | http://localhost:3000  |
 | Prometheus | http://localhost:9090  |
 | Grafana    | http://localhost:3001  |
@@ -75,7 +75,7 @@ hf_hz97dupC37Crm281dt_6HZxOldO9baEnTMumbXl2nFM
 ### Create an endpoint
 
 ```bash
-curl -s -X POST http://localhost:8080/api/v1/endpoints \
+curl -s -X POST http://localhost:18080/api/v1/endpoints \
   -H "Authorization: Bearer hf_hz97dupC37Crm281dt_6HZxOldO9baEnTMumbXl2nFM" \
   -H "Content-Type: application/json" \
   -d '{
@@ -90,7 +90,7 @@ Save the returned `public_id` and `secret`.
 
 ```bash
 # Replace PUBLIC_ID / SECRET / TIMESTAMP / SIGNATURE
-curl -s -X POST "http://localhost:8080/webhooks/PUBLIC_ID" \
+curl -s -X POST "http://localhost:18080/webhooks/PUBLIC_ID" \
   -H "Content-Type: application/json" \
   -H "X-Event-ID: evt_001" \
   -H "X-Webhook-Timestamp: TIMESTAMP" \

@@ -5,9 +5,9 @@ export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss'],
   css: ['~/assets/css/main.css'],
   runtimeConfig: {
-    apiBase: process.env.NUXT_API_BASE || 'http://localhost:8080',
+    apiBase: process.env.NUXT_API_BASE || 'http://localhost:18080',
     public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:8080',
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:18080',
       appName: 'HookForge',
       // Prefills the dashboard in local/dev so you don't paste a key every time.
       defaultApiKey: process.env.NUXT_PUBLIC_DEFAULT_API_KEY || '',
