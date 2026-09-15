@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"encoding/json"
 	"time"
 
 	"github.com/google/uuid"
@@ -52,14 +53,14 @@ type Endpoint struct {
 
 // Event is an ingested webhook payload awaiting delivery.
 type Event struct {
-	ID              uuid.UUID   `json:"id"`
-	EndpointID      uuid.UUID   `json:"endpoint_id"`
-	ExternalEventID string      `json:"external_event_id"`
-	EventType       string      `json:"event_type"`
-	Payload         []byte      `json:"payload"`
-	Status          EventStatus `json:"status"`
-	CreatedAt       time.Time   `json:"created_at"`
-	UpdatedAt       time.Time   `json:"updated_at"`
+	ID              uuid.UUID       `json:"id"`
+	EndpointID      uuid.UUID       `json:"endpoint_id"`
+	ExternalEventID string          `json:"external_event_id"`
+	EventType       string          `json:"event_type"`
+	Payload         json.RawMessage `json:"payload"`
+	Status          EventStatus     `json:"status"`
+	CreatedAt       time.Time       `json:"created_at"`
+	UpdatedAt       time.Time       `json:"updated_at"`
 }
 
 // Delivery tracks delivery progress for an event.

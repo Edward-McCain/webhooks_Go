@@ -1,0 +1,168 @@
+openapi: 3.0.3
+info:
+  title: HookForge API
+  version: 1.0.0
+  description: Reliable webhook delivery infrastructure API.
+servers:
+  - url: http://localhost:8080
+security:
+  - bearerAuth: []
+paths:
+  /health:
+    get:
+      security: []
+      summary: Liveness probe
+      responses:
+        '200':
+          description: OK
+  /ready:
+    get:
+      security: []
+      summary: Readiness probe
+      responses:
+        '200':
+          description: Ready
+  /webhooks/{public_id}:
+    post:
+      security: []
+      summary: Ingest a webhook
+      parameters:
+        - in: path
+          name: public_id
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: X-Event-ID
+          schema:
+            type: string
+        - in: header
+          name: X-Webhook-Timestamp
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: X-Webhook-Signature
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '202':
+          description: Accepted
+        '200':
+          description: Duplicate event
+  /api/v1/endpoints:
+    get:
+      summary: List endpoints
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Create endpoint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, target_url]
+              properties:
+                name:
+                  type: string
+                target_url:
+                  type: string
+                rate_limit:
+                  type: integer
+      responses:
+        '201':
+          description: Created
+  /api/v1/events:
+    get:
+      summary: List events
+      responses:
+        '200':
+          description: OK
+  /api/v1/events/{id}:
+    get:
+      summary: Get event
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/events/{id}/retry:
+    post:
+      summary: Retry event delivery
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '202':
+          description: Queued
+  /api/v1/deliveries:
+    get:
+      summary: List deliveries
+      responses:
+        '200':
+          description: OK
+  /api/v1/stats:
+    get:
+      summary: Get aggregate stats
+      responses:
+        '200':
+          description: OK
+  /api/v1/api-keys:
+    get:
+      summary: List API keys
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Create API key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+      responses:
+        '201':
+          description: Created
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            request_id:
+              type: string

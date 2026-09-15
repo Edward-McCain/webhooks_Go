@@ -43,7 +43,7 @@ Redis is used for rate limiting and short-lived idempotency helpers. Payload bod
 - Kafka
 - Prometheus / Grafana
 - Docker Compose
-- Nuxt 4 dashboard (coming next)
+- Nuxt 4 dashboard
 
 ## Quick start
 
@@ -57,6 +57,7 @@ Services:
 | Service    | URL                    |
 |------------|------------------------|
 | API        | http://localhost:8080  |
+| Dashboard  | http://localhost:3000  |
 | Prometheus | http://localhost:9090  |
 | Grafana    | http://localhost:3001  |
 
@@ -154,8 +155,11 @@ make vet
 backend/
   cmd/api
   cmd/worker
+  cmd/seed
   internal/
   migrations/
+  api/openapi.yaml
+frontend/
 deploy/
   prometheus/
   grafana/

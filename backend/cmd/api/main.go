@@ -80,6 +80,7 @@ func main() {
 	h = middleware.Metrics(h)
 	h = middleware.Logging(log)(h)
 	h = middleware.RequestID(h)
+	h = middleware.CORS(h)
 	h = middleware.Recover(log)(h)
 
 	srv := &http.Server{
