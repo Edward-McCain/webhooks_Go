@@ -20,12 +20,13 @@ type Producer struct {
 func NewProducer(brokers []string, topic string, log *slog.Logger) *Producer {
 	return &Producer{
 		writer: &kafka.Writer{
-			Addr:         kafka.TCP(brokers...),
-			Topic:        topic,
-			Balancer:     &kafka.LeastBytes{},
-			RequiredAcks: kafka.RequireOne,
-			Async:        false,
-			BatchTimeout: 10 * time.Millisecond,
+			Addr:                   kafka.TCP(brokers...),
+			Topic:                  topic,
+			Balancer:               &kafka.LeastBytes{},
+			RequiredAcks:           kafka.RequireOne,
+			Async:                  false,
+			BatchTimeout:           10 * time.Millisecond,
+			AllowAutoTopicCreation: true,
 		},
 		topic: topic,
 		log:   log,

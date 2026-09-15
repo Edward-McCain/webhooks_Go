@@ -7,7 +7,8 @@ COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o /out/api ./cmd/api \
- && CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o /out/worker ./cmd/worker
+ && CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o /out/worker ./cmd/worker \
+ && CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o /out/seed ./cmd/seed
 
 FROM alpine:3.21
 RUN apk add --no-cache ca-certificates tzdata \
@@ -15,6 +16,7 @@ RUN apk add --no-cache ca-certificates tzdata \
 WORKDIR /app
 COPY --from=builder /out/api /app/api
 COPY --from=builder /out/worker /app/worker
+COPY --from=builder /out/seed /app/seed
 USER hookforge
 EXPOSE 8080
-ENTRYPOINT ["/app/api"]
+CMD ["/app/api"]

@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/Edward-McCain/webhooks_Go/backend/internal/domain"
+	"github.com/Edward-McCain/webhooks_Go/backend/internal/logger"
 	"github.com/Edward-McCain/webhooks_Go/backend/internal/metrics"
 	"github.com/Edward-McCain/webhooks_Go/backend/internal/middleware"
 	"github.com/Edward-McCain/webhooks_Go/backend/internal/repository"
@@ -398,6 +399,11 @@ func writeError(w http.ResponseWriter, r *http.Request, err error) {
 		})
 		return
 	}
+	logger.FromContext(r.Context()).Error("request failed",
+		"error", err.Error(),
+		"path", r.URL.Path,
+		"request_id", middleware.GetRequestID(r.Context()),
+	)
 	writeJSON(w, http.StatusInternalServerError, map[string]any{
 		"error": map[string]any{
 			"code":       "INTERNAL_ERROR",
