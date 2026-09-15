@@ -1,8 +1,13 @@
 <script setup lang="ts">
 const route = useRoute()
+const config = useRuntimeConfig()
 const { apiKey } = useApi()
 const sidebarOpen = ref(false)
- 
+const showKeyField = ref(false)
+
+const hasDefaultKey = computed(() => Boolean(config.public.defaultApiKey))
+const keyReady = computed(() => Boolean(apiKey.value))
+
 const nav = [
   { to: '/', label: 'Dashboard', exact: true },
   { to: '/endpoints', label: 'Endpoints' },
@@ -67,7 +72,22 @@ function isActive(item: (typeof nav)[number]) {
           <span class="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-medium text-emerald-300">
             development
           </span>
+          <span
+            v-if="hasDefaultKey && keyReady && !showKeyField"
+            class="rounded-full border border-zinc-700 bg-zinc-900 px-2.5 py-1 text-[11px] text-zinc-400"
+          >
+            API connected
+          </span>
+          <button
+            v-if="hasDefaultKey && !showKeyField"
+            type="button"
+            class="btn-ghost text-xs"
+            @click="showKeyField = true"
+          >
+            Change key
+          </button>
           <input
+            v-if="!hasDefaultKey || showKeyField || !keyReady"
             v-model="apiKey"
             class="input max-w-[220px] mono text-xs"
             type="password"

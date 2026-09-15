@@ -63,17 +63,20 @@ Services:
 
 Default Grafana login: `admin` / `admin`.
 
-Bootstrap API key (compose):
+The local dashboard authenticates automatically with the development API key from Compose.
+You do not need to paste a key into the UI.
+
+For curl / scripts, use:
 
 ```text
-hf_dev_bootstrap_key_change_me
+hf_hz97dupC37Crm281dt_6HZxOldO9baEnTMumbXl2nFM
 ```
 
 ### Create an endpoint
 
 ```bash
 curl -s -X POST http://localhost:8080/api/v1/endpoints \
-  -H "Authorization: Bearer hf_dev_bootstrap_key_change_me" \
+  -H "Authorization: Bearer hf_hz97dupC37Crm281dt_6HZxOldO9baEnTMumbXl2nFM" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "demo",

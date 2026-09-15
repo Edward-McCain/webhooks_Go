@@ -61,7 +61,7 @@ services:
       KAFKA_GROUP_ID: hookforge-workers
       WORKER_COUNT: "10"
       ALLOW_PRIVATE_TARGETS: "true"
-      BOOTSTRAP_API_KEY: hf_dev_bootstrap_key_change_me
+      BOOTSTRAP_API_KEY: hf_hz97dupC37Crm281dt_6HZxOldO9baEnTMumbXl2nFM
       LOG_LEVEL: info
     depends_on:
       postgres:
@@ -104,10 +104,12 @@ services:
       dockerfile: Dockerfile
       args:
         NUXT_PUBLIC_API_BASE: http://localhost:8080
+        NUXT_PUBLIC_DEFAULT_API_KEY: hf_hz97dupC37Crm281dt_6HZxOldO9baEnTMumbXl2nFM
     ports:
       - "3000:3000"
     environment:
       NUXT_PUBLIC_API_BASE: http://localhost:8080
+      NUXT_PUBLIC_DEFAULT_API_KEY: hf_hz97dupC37Crm281dt_6HZxOldO9baEnTMumbXl2nFM
       HOST: 0.0.0.0
       PORT: "3000"
     depends_on:

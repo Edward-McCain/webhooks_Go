@@ -2,9 +2,17 @@
 const toasts = useState<Array<{ id: number; message: string; type: 'success' | 'error' | 'info' }>>('toasts', () => [])
 const { apiKey } = useApi()
 
+const config = useRuntimeConfig()
+
 onMounted(() => {
   const saved = localStorage.getItem('hookforge_api_key')
-  if (saved) apiKey.value = saved
+  if (saved) {
+    apiKey.value = saved
+    return
+  }
+  if (config.public.defaultApiKey) {
+    apiKey.value = String(config.public.defaultApiKey)
+  }
 })
 
 watch(apiKey, (v) => {

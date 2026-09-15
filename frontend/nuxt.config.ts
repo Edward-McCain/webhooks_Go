@@ -9,6 +9,8 @@ export default defineNuxtConfig({
     public: {
       apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:8080',
       appName: 'HookForge',
+      // Prefills the dashboard in local/dev so you don't paste a key every time.
+      defaultApiKey: process.env.NUXT_PUBLIC_DEFAULT_API_KEY || '',
     },
   },
   app: {
