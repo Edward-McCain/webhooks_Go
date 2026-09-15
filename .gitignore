@@ -1,0 +1,53 @@
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Secrets
+*.pem
+*.key
+credentials.json
+secrets/
+
+# Go
+backend/bin/
+backend/coverage.out
+backend/coverage.html
+*.test
+*.out
+vendor/
+
+# Node / Frontend
+frontend/node_modules/
+frontend/.nuxt/
+frontend/.output/
+frontend/dist/
+frontend/.nitro/
+frontend/.cache/
+frontend/coverage/
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Build / temp
+tmp/
+temp/
+*.log
+coverage/
+dist/
+build/
+
+# Docker volumes
+data/
+postgres-data/
+redis-data/
+kafka-data/
+
+# Task brief (local only)
+task.md
